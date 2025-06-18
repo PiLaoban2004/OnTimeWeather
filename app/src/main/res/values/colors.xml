@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 浅色主题颜色 -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC6</color>
+
+    <!-- 深色主题颜色 -->
+    <color name="darkColorPrimary">#BB86FC</color>
+    <color name="darkColorPrimaryDark">#3700B3</color>
+    <color name="darkColorAccent">#03DAC6</color>
+    <color name="darkBackground">#121212</color>
 </resources>

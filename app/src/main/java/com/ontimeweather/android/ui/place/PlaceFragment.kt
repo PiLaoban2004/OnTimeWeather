@@ -10,14 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ontimeweather.android.R
 import com.ontimeweather.android.databinding.FragmentPlaceBinding
 
 class PlaceFragment : Fragment() {
+    //使用ViewBinding绑定组件
     private  var _binding: FragmentPlaceBinding? =null
     private val binding get() = _binding!!
 
     private lateinit var adapter: PlaceAdapter
+
+    //使用懒加载获取PlaceViewModel的实例
     val viewModel by lazy { ViewModelProvider(this).get(PlaceViewModel::class.java) }
 
     override fun onCreateView(
@@ -25,6 +27,7 @@ class PlaceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //加载fragment_place布局
         _binding = FragmentPlaceBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,12 +37,15 @@ class PlaceFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.layoutManager = layoutManager
+        //使用PlaceViewModel的 placeList 作为数据源
         adapter = PlaceAdapter(this, viewModel.placeList)
         binding.recyclerView.adapter = adapter
 
+        //监听输入框的数据变化
         binding.searchPlaceEdit.addTextChangedListener { editable ->
             val content = editable.toString()
             if (content.isNotEmpty()) {
+                //发起搜索城市数据的请求
                 viewModel.searchPlaces(content)
             }else {
                 binding.recyclerView.visibility = View.GONE
@@ -49,6 +55,7 @@ class PlaceFragment : Fragment() {
             }
         }
 
+        //借助 liveData 获取服务器响应的数据
         viewModel.placeLiveData.observe(viewLifecycleOwner, Observer{ result ->
             val places = result.getOrNull()
             if (places != null) {

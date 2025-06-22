@@ -1,6 +1,9 @@
 package com.ontimeweather.android.ui.weather
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.service.autofill.Validators.or
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -131,7 +134,7 @@ class WeatherActivity : AppCompatActivity() {
             realtime.airQuality?.aqi?.chn?.let { aqi ->
                 "空气指数 ${aqi.toInt()}"
             } ?: "空气指数 暂无数据"
-        }catch (e: Exception){
+        }catch (_: Exception){
             "空气指数 获取失败"
         }
     }

@@ -1,7 +1,8 @@
 package com.ontimeweather.android.logic
 
-import android.util.Log
 import androidx.lifecycle.liveData
+import com.ontimeweather.android.logic.dao.PlaceDao
+import com.ontimeweather.android.logic.model.Place
 import com.ontimeweather.android.logic.model.Weather
 import com.ontimeweather.android.logic.network.OnTimeWeatherNetwork
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +11,13 @@ import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.CoroutineContext
 
 object Repository {
+
+    fun savePlace(place: Place) = PlaceDao.savePlace(place)
+
+    fun getSavedPlace() = PlaceDao.getSavedPlace()
+
+    fun isPlaceSaved() = PlaceDao.isPlaceSaved()
+
     fun searchPlaces(query: String) = fire(Dispatchers.IO) {
         val placeResponse = OnTimeWeatherNetwork.searchPlaces(query)
         if (placeResponse.status == "ok") {
@@ -52,6 +60,7 @@ object Repository {
         }
     }
 }
+
 private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
     liveData<Result<T>>(context) {
         val result = try {

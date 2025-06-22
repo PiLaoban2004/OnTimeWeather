@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OnTimeWeather</string>
+    <string name="app_name">即视天气</string>
     <string name="edit_hint">"输入地址"</string>
     <string name="img_des">"背景图"</string>
     <!-- Strings used for fragments for navigation -->
